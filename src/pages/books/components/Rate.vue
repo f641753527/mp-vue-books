@@ -1,11 +1,14 @@
 <template>
   <div class="rate">
-    <span>☆☆☆☆☆</span>
-    <div ref='score' class='score' :style='style'>★★★★★</div>
+    <span class="star" v-for='(star, index) in stars' :class='star' :key='index'></span>
   </div>
 </template>
 
 <script>
+const LEN = 5;
+const STAR_ON = 'on';
+const STAR_HALF = 'half';
+const STAR_OFF = 'off';
 export default {
   props: {
     rate: {
@@ -14,8 +17,21 @@ export default {
     },
   },
   computed: {
-    style() {
-      return `width: ${this.rate / 2}em`;
+    
+    stars() {
+      const status = [];
+      const starOnNum = Math.floor(this.rate / 2);
+      for (let i = 0; i < starOnNum; i++) {
+        status.push(STAR_ON);
+      }
+      let hasHalf = this.rate !== Math.floor(this.rate);
+      if (hasHalf) {
+        status.push(STAR_HALF);
+      }
+      while (status.length < LEN) {
+        status.push(STAR_OFF);
+      }
+      return status;
     },
   },
   mounted() {
@@ -25,18 +41,23 @@ export default {
 
 <style lang="scss" scoped>
 .rate{
-  position: relative;
-  display: inline-block;
-  vertical-align: middle;
-  text-align: left;
-  font-size: 28rpx;
-  .score{
-    position: absolute;
+  
+  .star{
     display: inline-block;
-    left: 0;
-    top: 0;
-    width: 0;
-    overflow: hidden;
+    width: 40rpx;
+    height: 40rpx;
+    &.on{
+      background: url('./image/star24_on@2x.png') center center no-repeat;
+      background-size: 100%;
+    }
+    &.half{
+      background: url('./image/star24_half@2x.png') center center no-repeat;
+      background-size: 100%;
+    }
+    &.off{
+      background: url('./image/star24_off@2x.png') center center no-repeat;
+      background-size: 100%;
+    }
   }
 }
 </style>
