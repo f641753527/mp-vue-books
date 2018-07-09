@@ -1,5 +1,6 @@
 <template>
   <div class="me">
+    <TopSwiper :topList='toplist'/>
     <BookItem v-for='book in books' :key='book.id' :book='book'/>
     <p class="line-bottom" v-show='!hasMore'>-----大兄弟,到底啦-----</p>
   </div>
@@ -7,7 +8,8 @@
 
 <script>
 import * as API from '@/services/request';
-import BookItem from './components/Item'
+import BookItem from './components/Item';
+import TopSwiper from './components/TopSwiper';
 export default {
   data() {
     return {
@@ -15,9 +17,10 @@ export default {
       pagesize: 10,
       pageindex: 0,
       hasMore: true,
+      toplist: [],
     };
   },
-  components: { BookItem },
+  components: { BookItem, TopSwiper },
   methods: {
     async getBookList(init) {
       if (init) {
@@ -41,9 +44,16 @@ export default {
         wx.stopPullDownRefresh();
       }
     },
+    async getTopList() {
+      const data = await API.GET('/weapp/toplist');
+      if (data) {
+        this.toplist = data.list;
+      }
+    },
   },
   onShow() {
     this.getBookList(true);
+    this.getTopList();
   },
   onPullDownRefresh() {
     this.getBookList(true);

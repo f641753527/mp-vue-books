@@ -42,4 +42,10 @@ router.post('/addbook', controllers.addbook)
 // 获取图书列表
 router.get('/booklist', controllers.booklist)
 
+// 图书详情
+router.get('/bookdetail', controllers.bookdetail)
+
+// 排行榜列表
+router.get('/toplist', controllers.toplist)
+
 module.exports = router

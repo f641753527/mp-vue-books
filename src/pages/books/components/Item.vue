@@ -1,7 +1,7 @@
 <template>
-  <div class="book">
+  <div class="book" @click='showDetail'>
     <div class="flex-item fix-item">
-      <image :src="book.image" class='img'/>
+      <image :src="book.image" class='img' @click.stop='imagePreview'/>
     </div>
     <div class="flex-item auto-item">
       <p class="desc primary-text">{{book.title}}</p>
@@ -12,7 +12,7 @@
       <div class="desc primary-text">
         <Rate :rate='book.rate'></Rate>
       </div>
-      <p class="desc">浏览量</p>
+      <p class="desc">浏览量: {{book.count}}</p>
       <p class="desc">{{book.user_info.nickName}}</p>
     </div>
   </div>
@@ -26,6 +26,16 @@ export default {
   props: {
     book: {
       type: Object,
+    },
+  },
+  methods: {
+    showDetail() {
+      wx.navigateTo({
+        url: `/pages/detail/main?id=${this.book.id}`
+      });
+    },
+    imagePreview() {
+      
     },
   },
 }
