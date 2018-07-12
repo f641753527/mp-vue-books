@@ -120,7 +120,7 @@ export default {
   .summary{
     padding: 0 12px;
     margin-top: 20rpx;
-    margin-bottom: 60rpx;
+    margin-bottom: 40rpx;
     font-size: 12px;
     color: $color-text;
     .text{
