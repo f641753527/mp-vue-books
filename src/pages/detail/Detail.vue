@@ -1,11 +1,12 @@
 <template>
   <div class="detail">
-    <p class="id">图书id： {{bookid}}</p>
+    <BookInfo :info='bookinfo'></BookInfo>
   </div>
 </template>
 
 <script>
 import * as API from '@/services/request';
+import BookInfo from './components/BookInfo';
 
 export default {
   data() {
@@ -17,8 +18,12 @@ export default {
   methods: {
     async getDetail() {
       const info = await API.GET('/weapp/bookdetail', { bookid: this.bookid });
+      if (info) {
+        this.bookinfo = info;
+      }
     },
   },
+  components: { BookInfo },
   mounted() {
     this.bookid = this.$root.$mp.query.id;
     this.getDetail();
