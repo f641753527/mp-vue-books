@@ -20,6 +20,9 @@ export default {
       const info = await API.GET('/weapp/bookdetail', { bookid: this.bookid });
       if (info) {
         this.bookinfo = info;
+        wx.setNavigationBarTitle({
+          title: info.title,
+        })
       }
     },
   },
@@ -27,6 +30,11 @@ export default {
   mounted() {
     this.bookid = this.$root.$mp.query.id;
     this.getDetail();
+  },
+  onShareAppMessage() {
+    return {
+      path: `/page/detail/main?id=${this.bookid}`,
+    }
   },
 };
 </script>
