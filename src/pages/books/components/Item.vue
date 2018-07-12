@@ -1,7 +1,7 @@
 <template>
   <div class="book" @click='showDetail'>
     <div class="flex-item fix-item">
-      <image :src="book.image" class='img' @click.stop='imagePreview'/>
+      <image :src="book.image" class='img' @click.stop='imagePreview(book)'/>
     </div>
     <div class="flex-item auto-item">
       <p class="desc primary-text">{{book.title}}</p>
@@ -34,8 +34,11 @@ export default {
         url: `/pages/detail/main?id=${this.book.id}`
       });
     },
-    imagePreview() {
-      
+    imagePreview(book) {
+      wx.previewImage({
+        current: book.image, // 当前显示图片的http链接
+        urls: [book.image] // 需要预览的图片http链接列表
+      });
     },
   },
 }

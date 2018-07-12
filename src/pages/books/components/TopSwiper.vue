@@ -23,9 +23,6 @@ export default {
       type: Array,
     },
   },
-  mounted() {
-    console.log(this.topList);
-  },
 }
 </script>
 
