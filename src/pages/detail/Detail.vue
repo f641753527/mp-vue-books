@@ -4,15 +4,18 @@
 
     <!-- 评论 -->
     <div class="comment">
-      <textarea placeholder="请输入评论内容" :value='comment' class='textarea'/>
+      <textarea placeholder="请输入评论内容" v-model='comment' class='textarea'/>
 
       <div class="geo">
-        地理位置: <switch class="switch" @change="getGeo" color='#EA5A49'/><span>{{geo}}</span>
+        地理位置: <switch :checked='geo' class="switch" @change="getGeo" color='#EA5A49'/><span>{{geo}}</span>
       </div>
 
       <div class="phone">
-        手机型号: <switch class="switch" @change="getPhone" color='#EA5A49' size='small'/><span>{{phone}}</span>
+        手机型号: <switch :checked='phone' class="switch" @change="getPhone" color='#EA5A49' size='small'/><span>{{phone}}</span>
       </div>
+
+      <button class='add-comment-btn' @click='addComment'>评论</button>
+
     </div>
   </div>
 </template>
@@ -20,6 +23,7 @@
 <script>
 import * as API from '@/services/request';
 import BookInfo from './components/BookInfo';
+import { showModal } from '@/utils';
 
 export default {
   data() {
@@ -29,6 +33,7 @@ export default {
       comment: '',
       geo: '',
       phone: '',
+      userinfo: {},
     };
   },
   methods: {
@@ -77,11 +82,32 @@ export default {
         this.phone = '';
       }
     },
+    async addComment() {
+
+      if (!this.comment) {
+        showModal('错误', '评论内容为空');
+        return;
+      }
+      
+      const data = {
+        bookid: this.bookid,
+        openid: this.userinfo.openId,
+        comment: this.comment,
+        geo: this.geo,
+        phone: this.phone
+      };
+
+      await API.POST('/weapp/addComment', data);
+    },
   },
   components: { BookInfo },
   mounted() {
     this.bookid = this.$root.$mp.query.id;
     this.getDetail();
+    const user = wx.getStorageSync('userinfo');
+    if (user) {
+      this.userinfo = user;
+    }
   },
   onShareAppMessage() {
     return {
@@ -101,6 +127,7 @@ export default {
     .textarea{
       padding: 20rpx;
       width: 100%;
+      height: 200rpx;
       box-sizing: border-box;
       background: #eee;
     }
@@ -109,6 +136,16 @@ export default {
       .switch{
         margin: 0 10rpx;
       }
+      span{
+        color: $color-main;
+      }
+    }
+    .add-comment-btn{
+      margin-top: 60rpx;
+      height: 80rpx;
+      line-height: 80rpx;
+      color: #fff;
+      background: $color-main;
     }
   }
 }
