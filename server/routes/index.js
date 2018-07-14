@@ -48,4 +48,7 @@ router.get('/bookdetail', controllers.bookdetail)
 // 排行榜列表
 router.get('/toplist', controllers.toplist)
 
+// 添加评论
+router.post('/addcomment', controllers.addcomment)
+
 module.exports = router

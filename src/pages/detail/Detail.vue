@@ -23,7 +23,7 @@
 <script>
 import * as API from '@/services/request';
 import BookInfo from './components/BookInfo';
-import { showModal } from '@/utils';
+import { showModal, showToast } from '@/utils';
 
 export default {
   data() {
@@ -97,7 +97,16 @@ export default {
         phone: this.phone
       };
 
-      await API.POST('/weapp/addComment', data);
+      const res = await API.POST('/weapp/addComment', data);
+      if (res) {
+        showToast(res.msg);
+        this.reset();
+      }
+    },
+    reset() {
+      this.comment = '';
+      this.geo = '';
+      this.phone = '';
     },
   },
   components: { BookInfo },
