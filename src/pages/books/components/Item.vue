@@ -53,6 +53,7 @@ export default {
   display: flex;
   font-size: 28rpx;
   color: $color-text;
+  background: #fff;
   .fix-item{
     flex: 0 0 200rpx;
     width: 200rpx;

@@ -51,4 +51,7 @@ router.get('/toplist', controllers.toplist)
 // 添加评论
 router.post('/addcomment', controllers.addcomment)
 
+// 评论列表
+router.get('/getCommentList', controllers.commentList)
+
 module.exports = router

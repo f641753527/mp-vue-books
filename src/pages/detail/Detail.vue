@@ -2,8 +2,13 @@
   <div class="detail">
     <BookInfo :info='bookinfo'></BookInfo>
 
+    <div class="comment-list">
+      <Comment v-for='(item, index) in commentlist' :key='index' :comment='item'></Comment>
+    </div>
+
+
     <!-- 评论 -->
-    <div class="comment">
+    <div class="comment" v-show='userinfo.openId'>
       <textarea placeholder="请输入评论内容" v-model='comment' class='textarea'/>
 
       <div class="geo">
@@ -23,6 +28,7 @@
 <script>
 import * as API from '@/services/request';
 import BookInfo from './components/BookInfo';
+import Comment from './components/Comment';
 import { showModal, showToast } from '@/utils';
 
 export default {
@@ -34,6 +40,7 @@ export default {
       geo: '',
       phone: '',
       userinfo: {},
+      commentlist: [],
     };
   },
   methods: {
@@ -101,6 +108,13 @@ export default {
       if (res) {
         showToast(res.msg);
         this.reset();
+        this.getComments();
+      }
+    },
+    async getComments() {
+      const res = await API.GET('/weapp/getCommentList', { bookid: this.bookid });
+      if (res) {
+        this.commentlist = res.list;
       }
     },
     reset() {
@@ -109,10 +123,11 @@ export default {
       this.phone = '';
     },
   },
-  components: { BookInfo },
+  components: { BookInfo, Comment },
   mounted() {
     this.bookid = this.$root.$mp.query.id;
     this.getDetail();
+    this.getComments();
     const user = wx.getStorageSync('userinfo');
     if (user) {
       this.userinfo = user;
@@ -129,6 +144,10 @@ export default {
 <style lang="scss" scoped>
 @import '~@scss';
 .detail{
+  .comment-list{
+    padding: 2rpx 0;
+    background: #eee;
+  }
   .comment{
     padding: 20rpx;
     font-size: 14px;
