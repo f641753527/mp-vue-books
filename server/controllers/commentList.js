@@ -3,8 +3,8 @@ const { mysql } = require('../qcloud');
 module.exports = async (ctx) => {
   const { bookid, openid } = ctx.request.query;
 
-  const res = mysql('comments').select('comments.*', 'csessioninfo.user_info')
-                    .join('csessioninfo', 'comments.openid', 'csessioninfo.open_id')
+  const res = mysql('comments').select('comments.*', 'cSessionInfo.user_info')
+                    .join('cSessionInfo', 'comments.openid', 'cSessionInfo.open_id')
 
   let list = [];
   if (bookid) {

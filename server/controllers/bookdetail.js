@@ -4,8 +4,8 @@ module.exports = async (ctx, next) => {
   const { bookid } = ctx.request.query;
 
   const book = await mysql('books')
-                      .select('books.*', 'csessioninfo.user_info')
-                      .join('csessioninfo', 'books.openid', 'csessioninfo.open_id')
+                      .select('books.*', 'cSessionInfo.user_info')
+                      .join('cSessionInfo', 'books.openid', 'cSessionInfo.open_id')
                       .where('id', bookid).first();
 
 
