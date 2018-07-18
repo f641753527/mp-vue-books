@@ -1,3 +1,5 @@
+ 
+ 
  CREATE TABLE `books` (   
    `id` int(11) NOT NULL AUTO_INCREMENT,   
    `isbn` varchar(20) NOT NULL,   
