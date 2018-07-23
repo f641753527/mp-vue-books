@@ -6,6 +6,7 @@ app.$mount()
 
 export default {
   config: {
-    navigationBarTitleText: '朋友圈'
+    navigationBarTitleText: '朋友圈',
+    navigationStyle: 'custom'
   }
 }

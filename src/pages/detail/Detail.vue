@@ -1,5 +1,6 @@
 <template>
   <div class="detail">
+    <NavigationBar :title='title'/>
     <BookInfo :info='bookinfo'></BookInfo>
 
     <div class="comment-list">
@@ -29,11 +30,13 @@
 import * as API from '@/services/request';
 import BookInfo from './components/BookInfo';
 import Comment from './components/Comment';
+import NavigationBar from '@/components/NavigationBar';
 import { showModal, showToast } from '@/utils';
 
 export default {
   data() {
     return {
+      title: '图书详情',
       bookid: '',
       bookinfo: {},
       comment: '',
@@ -123,7 +126,7 @@ export default {
       this.phone = '';
     },
   },
-  components: { BookInfo, Comment },
+  components: { BookInfo, Comment, NavigationBar },
   mounted() {
     this.bookid = this.$root.$mp.query.id;
     this.getDetail();

@@ -1,5 +1,6 @@
 <template>
   <div class="test">
+    <NavigationBar :title='title'/>
     <ul class="list">
       <li class='item' v-for='(item, index) in list' :key='index' @click='detail(item)'>
         <img :src="item.icon" mode='aspectFill' class='img'>
@@ -11,10 +12,12 @@
 </template>
 
 <script>
+import NavigationBar from '@/components/NavigationBar';
 
 export default {
   data() {
     return {
+      title: '发现',
       index: 0,
       list: [
         {
@@ -85,6 +88,7 @@ export default {
       wx.navigateTo({url: item.path});
     },
   },
+  components: { NavigationBar },
 }
 </script>
 
@@ -106,7 +110,7 @@ export default {
         border-bottom: 0 solid #ececec;
       }
       .img{
-        margin-right: 30rpx;
+        margin-right: 40rpx;
         width: 64rpx;
         height: 64rpx;
         display: inline-block;
@@ -118,7 +122,6 @@ export default {
         vertical-align: middle;
         font-size: 16px;
         color: #232323;
-        font-weight: 500;
       }
       .iconfont{
         float: right;

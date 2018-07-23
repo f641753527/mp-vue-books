@@ -1,18 +1,24 @@
 <template>
   <div class="me">
+    <NavigationBar :title='title'/>
     <TopSwiper :topList='toplist'/>
-    <BookItem v-for='book in books' :key='book.id' :book='book'/>
-    <p class="line-bottom" v-show='!hasMore'>-----大兄弟,到底啦-----</p>
+    <div class="container">
+      <BookItem v-for='book in books' :key='book.id' :book='book'/>
+      <p class="line-bottom" v-show='!hasMore'>-----大兄弟,到底啦-----</p>
+    </div>
+    
   </div>
 </template>
 
 <script>
 import * as API from '@/services/request';
 import BookItem from './components/Item';
+import NavigationBar from '@/components/NavigationBar';
 import TopSwiper from './components/TopSwiper';
 export default {
   data() {
     return {
+      title: '图书列表',
       books: [],
       pagesize: 10,
       pageindex: 0,
@@ -20,7 +26,7 @@ export default {
       toplist: [],
     };
   },
-  components: { BookItem, TopSwiper },
+  components: { BookItem, TopSwiper, NavigationBar },
   methods: {
     async getBookList(init) {
       if (init) {
@@ -69,7 +75,9 @@ export default {
 
 <style lang="scss" scoped>
 .me{
-  padding: 10rpx;
+  .container{
+    padding: 10rpx;
+  }
   .line-bottom{
     text-align: center;
     line-height: 48rpx;

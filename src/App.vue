@@ -6,6 +6,11 @@
 import { showModal } from '@/utils';
 
 export default {
+  data() {
+    return {
+      
+    };
+  },
   methods: {
     updateCheck() {
       // 获取小程序更新机制兼容
@@ -37,7 +42,7 @@ export default {
   },
   created() {
     this.updateCheck();
-  }
+  },
 }
 </script>
 
@@ -46,9 +51,7 @@ export default {
 @import "./assets/iconfont/iconfont.css";
 page{
   min-height: 100%;
-}
-.app{
-  min-height: 100%;
+  padding-top: 120rpx;
 }
 .button{
   background: $color-main;
