@@ -41,6 +41,12 @@ export default {
           text: '我',
           iconPath: 'static/img/me.png',
           selectedIconPath: 'static/img/me-active.png'
+        },
+        {
+          pagePath: 'pages/discovery/main',
+          text: '发现',
+          iconPath: 'static/img/discovery.png',
+          selectedIconPath: 'static/img/discovery-active.png'
         }
       ]
     }

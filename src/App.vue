@@ -43,6 +43,13 @@ export default {
 
 <style lang='scss'>
 @import '~@scss';
+@import "./assets/iconfont/iconfont.css";
+page{
+  min-height: 100%;
+}
+.app{
+  min-height: 100%;
+}
 .button{
   background: $color-main;
   color: #fff;
