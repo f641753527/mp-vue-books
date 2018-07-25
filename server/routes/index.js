@@ -54,4 +54,16 @@ router.post('/addcomment', controllers.addcomment)
 // 评论列表
 router.get('/getCommentList', controllers.commentList)
 
+// 发朋友圈
+router.post('/publishTalk', controllers.publishTalk)
+
+// 获取朋友圈列表
+router.get('/talkList', controllers.talkList)
+
+// 获取点赞列表
+router.get('/talkLikes', controllers.talkLikes)
+
+// 点赞
+router.post('/likeTheTalk', controllers.likeTheTalk)
+
 module.exports = router

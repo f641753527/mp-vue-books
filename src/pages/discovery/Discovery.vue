@@ -13,6 +13,7 @@
 
 <script>
 import NavigationBar from '@/components/NavigationBar';
+import { showModal } from '@/utils'
 
 export default {
   data() {
@@ -85,6 +86,10 @@ export default {
   },
   methods: {
     detail(item) {
+      if (!wx.getStorageSync('userinfo')) {
+        showModal('失败', '请先登录');
+        return;
+      }
       wx.navigateTo({url: item.path});
     },
   },

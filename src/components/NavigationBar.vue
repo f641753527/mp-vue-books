@@ -2,8 +2,8 @@
   <div class="navigationBar">
     <div class="signal"></div>
     <div class="container">
-      <i class="icon iconfont icon-left left" v-show='pages.length > 1' @click='back'></i>
-      <span class='text left'>{{backTitle}}</span>
+      <i class="icon iconfont icon-left left" v-show='pages.length > 1 && showBackIcon' @click='back'></i>
+      <span class='text left' @click='back'>{{backTitle}}</span>
       <span class='text center'>{{title}}</span>
     </div>
     
@@ -21,16 +21,28 @@ export default {
   props: {
     title: {
       type: String,
-      default: '范范图书助手',
+      default: '',
     },
     backTitle: {
       type: String,
       default: '',
     },
+    showBackIcon: {
+      type: Boolean,
+      default: true,
+    },
+    customBack: {
+      type: Boolean,
+      default: false,
+    },
   },
   methods: {
     back() {
-      wx.navigateBack({delta: 1});
+      if (this.customBack) {
+        this.$emit('customback');
+      } else {
+        wx.navigateBack({delta: 1});
+      }
     },
   },
   onShow() {
@@ -59,6 +71,7 @@ export default {
     height: 90rpx;
     line-height: 90rpx;
     position: relative;
+    padding-left: 20rpx;
     .left{
       float: left;
       &.text{
@@ -66,7 +79,6 @@ export default {
       }
     }
     .iconfont{
-      margin-left: 20rpx;
       padding: 0 20rpx;
     }
     .center{

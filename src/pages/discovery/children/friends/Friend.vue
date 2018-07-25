@@ -11,7 +11,7 @@
       </div>
 
       <div class="talks">
-dsfdsgfdsgfsdgf
+        <Talk v-for="(talk, index) in talkList" :talk='talk' :key='index'/>
       </div>
     </div>
     
@@ -19,7 +19,10 @@ dsfdsgfdsgfsdgf
 </template>
 
 <script>
+import * as API from '@/services/request';
 import NavigationBar from '@/components/NavigationBar';
+import Talk from './components/Talk';
+import upng from 'upng';
 
 export default {
   data() {
@@ -27,20 +30,30 @@ export default {
       title: '朋友圈',
       backTitle: '发现',
       user: {},
+      talkList: [],
     };
   },
   methods: {
     callCamare() {
       wx.chooseImage({
         success: (res) => {
-          const tempFilePaths = res.tempFilePaths;
+          const tempFiles = res.tempFiles;
+          wx.setStorageSync('tempFiles', tempFiles);
+          wx.redirectTo({url: '/pages/discovery/children/publish/main'});
         }
       });
     },
+    async getTalks() {
+      const res = await API.GET('/weapp/talkList');
+      if (res) {
+        this.talkList = res.list;
+      }
+    },
   },
-  components: { NavigationBar },
+  components: { NavigationBar, Talk },
   onReady() {
     this.user = wx.getStorageSync('userinfo') || {};
+    this.getTalks();
   },
 }
 </script>
@@ -83,7 +96,7 @@ page{
       }
     }
     .talks{
-      padding: 88rpx 22rpx;
+      padding: 88rpx 0;
     }
   }
 }

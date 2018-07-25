@@ -50,9 +50,6 @@ export default {
       }
     }
   },
-  created() {
-    // wx.setStorageSync('userinfo', '32432');
-  },
   mounted() {
     this.isLogin()
   },

@@ -25,3 +25,20 @@ CREATE TABLE `comments` (
   `location` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `talks` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `openid` varchar(50) NOT NULL,
+  `talk` varchar(1000) NOT NULL,
+  `pics` varchar(20000) NOT NULL,
+  `address` varchar(200) DEFAULT NULL,
+  `create_time` bigint DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `talk_likes` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `talkid` varchar(50) NOT NULL,
+  `openid` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
