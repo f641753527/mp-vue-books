@@ -8,7 +8,7 @@
       <h3 class="nickName">{{talk.user_info.nickName}}</h3>
       <p class='value'>{{talk.talk}}</p>
       <div class="pics_wrap">
-        <img :src="pic.path" class="pic" v-for='(pic, index2) in talk.pics' :key='index2' mode=''>
+        <img :src="pic.path" class="pic" v-for='(pic, index2) in talk.pics' :key='index2' mode='aspectFill' @click='preview(pic.path)'>
       </div>
       <div class="hit_like">
         <span class="time">{{time}}</span>
@@ -45,7 +45,6 @@ export default {
       });
       if (res) {
         this.likes = res.list;
-        console.log(this.likes);
       }
     },
     async like() {
@@ -54,6 +53,15 @@ export default {
         talkid: this.talk.id
       });
       this.getLikes();
+    },
+    preview(path) {
+      const urls = this.talk.pics.map(v => {
+        return v.path;
+      });
+      wx.previewImage({
+        current: path,
+        urls,
+      });
     },
   },
   computed: {
@@ -79,7 +87,7 @@ export default {
       }).join(',');
     },
   },
-  created() {
+  onLoad() {
     this.user = wx.getStorageSync('userinfo');
     this.getLikes();
   },
@@ -131,6 +139,7 @@ export default {
       color: #5f5f5f;
       .iconfont{
         color: #98accf;
+        font-size: 24px;
       }
     }
     .all_likes{

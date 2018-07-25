@@ -51,7 +51,7 @@ export default {
     },
   },
   components: { NavigationBar, Talk },
-  onReady() {
+  onLoad() {
     this.user = wx.getStorageSync('userinfo') || {};
     this.getTalks();
   },
