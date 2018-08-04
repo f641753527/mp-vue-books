@@ -69,7 +69,6 @@ export default {
         address: this.address
       };
       const res = await API.POST('/weapp/publishTalk', data);
-      console.error(res);
       if (res) {
         showToast('发布成功');
         setTimeout(() => {
