@@ -3,6 +3,7 @@
 </template>
 
 <script>
+import * as API from '@/services/request';
 import { showModal } from '@/utils';
 
 export default {
@@ -39,9 +40,18 @@ export default {
         });
       }
     },
+    login() {
+      wx.login({
+        success: async (response) => {
+          const res = await API.POST('/weapp/login', { code: response.code });
+          wx.setStorageSync('open_id', res.open_id);
+        }
+      });
+    },
   },
   created() {
     this.updateCheck();
+    this.login();
   },
 }
 </script>

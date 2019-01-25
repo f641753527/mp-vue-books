@@ -12,7 +12,7 @@
       <YearProgeress></YearProgeress>
 
       <div>
-        <button v-if='user.openId' class='scanBook button' @click='scanBook'>添加图书</button>
+        <button v-if='user.gender' class='scanBook button' @click='scanBook'>添加图书</button>
       </div>
     </div>
     
@@ -41,50 +41,31 @@ export default {
   methods: {
     doLogin() {
       const user = wx.getStorageSync('userinfo');
+      const open_id = wx.getStorageSync('open_id');
       if (user) {
         return;
       }
-      const session = qcloud.Session.get();
-      qcloud.setLoginUrl(config.loginUrl);
-      showLoading('正在登录');
-      if (session) {
-        // 第二次登录
-        // 或者本地已经有登录态
-        // 可使用本函数更新登录态
-        qcloud.loginWithCode({
-          success: res => {
-            wx.setStorageSync('userinfo', res);
-            this.user = res;
-            wx.hideLoading();
-            showToast('登录成功');            
-          },
-          fail: err => {
-            wx.hideLoading();
-          },
-        })
-      } else {
-          // 首次登录
-        qcloud.login({
-          success: res => {
-            wx.setStorageSync('userinfo', res);
-            this.user = res;
-            wx.hideLoading();
-            showToast('登录成功');
-          },
-          fail: err => {
-            wx.hideLoading();
-          },
-        })
-      }
-    },
-    scanBook() {
-      wx.scanCode({
+      
+      wx.getUserInfo({
         success: (res) => {
-          this.addBook(res.result, this.user.openId);
+          this.user = res.userInfo;
+          wx.setStorageSync('userinfo', res.userInfo);
+          API.POST('/weapp/update_user', {
+            open_id: open_id,
+            userinfo: res.userInfo
+          });
         }
       })
     },
-    async addBook(isbn, openId) {
+    scanBook() {
+      const open_id = wx.getStorageSync('open_id');
+      wx.scanCode({
+        success: (res) => {
+          this.addBook(res.result, open_id);
+        }
+      })
+    },
+    async addBook(isbn, open_id) {
       const data = {isbn, openId};
       const res = await API.POST('/weapp/addbook', data);
       if (res) {
