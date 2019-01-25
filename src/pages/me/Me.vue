@@ -23,7 +23,6 @@
 <script>
 import * as API from '@/services/request';
 import config from '@/services/config';
-import qcloud from 'wafer2-client-sdk';
 import { showToast, showLoading } from '@/utils';
 import YearProgeress from './components/YearProgeress';
 import NavigationBar from '@/components/NavigationBar';
@@ -66,7 +65,7 @@ export default {
       })
     },
     async addBook(isbn, open_id) {
-      const data = {isbn, openId};
+      const data = {isbn, open_id};
       const res = await API.POST('/weapp/addbook', data);
       if (res) {
         showToast('添加图书成功');
