@@ -20,7 +20,7 @@ export default {
       backgroundTextStyle: 'light',
       navigationBarBackgroundColor: '#000',
       navigationBarTitleText: '微图书',
-      navigationBarTextStyle: '#fff',
+      navigationBarTextStyle: 'white',
       navigationStyle: 'custom'
     },
     tabBar: {

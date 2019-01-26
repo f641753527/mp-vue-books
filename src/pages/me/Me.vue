@@ -32,7 +32,7 @@ export default {
     return {
       title: '个人中心',
       user: {
-        avatarUrl: '../../../static/img/unlogin.png',
+        avatarUrl: '/static/img/unlogin.png',
         nickName: '点击登录'
       },
     };
@@ -41,9 +41,9 @@ export default {
     doLogin() {
       const user = wx.getStorageSync('userinfo');
       const open_id = wx.getStorageSync('open_id');
-      if (user) {
-        return;
-      }
+      // if (user) {
+      //   return;
+      // }
       
       wx.getUserInfo({
         success: (res) => {
@@ -74,10 +74,10 @@ export default {
   },
   components: { YearProgeress, NavigationBar },
   created() {
-    const user = wx.getStorageSync('userinfo');
-    if (user) {
-      this.user = user;
-    }
+    // const user = wx.getStorageSync('userinfo');
+    // if (user) {
+    //   this.user = user;
+    // }
   },
 }
 </script>
