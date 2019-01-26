@@ -9,7 +9,7 @@
 
 
     <!-- 评论 -->
-    <div class="comment" v-show='userinfo.openId'>
+    <div class="comment" v-show='userinfo.nickName'>
       <textarea placeholder="请输入评论内容" v-model='comment' class='textarea'/>
 
       <div class="geo">
@@ -98,10 +98,12 @@ export default {
         showModal('错误', '评论内容为空');
         return;
       }
+
+      const open_id = wx.getStorageSync('open_id');
       
       const data = {
         bookid: this.bookid,
-        openid: this.userinfo.openId,
+        openid: open_id,
         comment: this.comment,
         geo: this.geo,
         phone: this.phone
@@ -128,10 +130,11 @@ export default {
   },
   components: { BookInfo, Comment, NavigationBar },
   mounted() {
-    this.bookid = this.$root.$mp.query.id;
+    this.bookid = Number(this.$root.$mp.query.id);
     this.getDetail();
     this.getComments();
     const user = wx.getStorageSync('userinfo');
+    console.log(user);
     if (user) {
       this.userinfo = user;
     }

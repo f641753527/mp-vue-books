@@ -36,13 +36,15 @@ export default {
       wx.hideNavigationBarLoading();
     },
     async getComments() {
-      const res = await API.GET('/weapp/getCommentList', { openid: this.userinfo.openId });
+      const open_id = wx.getStorageSync('open_id');
+      const res = await API.GET('/weapp/getCommentList', { openid: open_id });
       if (res) {
         this.comments = res.list;
       }
     },
     async getBooks() {
-      const res = await API.GET('/weapp/booklist', { openid: this.userinfo.openId });
+      const open_id = wx.getStorageSync('open_id');
+      const res = await API.GET('/weapp/booklist', { openid: open_id });
       if (res) {
         this.books = res.list;
       }
@@ -51,7 +53,7 @@ export default {
   components: { Comment, BookItem, NavigationBar},
   onShow() {
     const user = wx.getStorageSync('userinfo');
-    if (user.openId) {
+    if (user.nickName) {
       this.userinfo = user;
       this.init();
     }

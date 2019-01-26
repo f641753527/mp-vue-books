@@ -12,7 +12,7 @@
       <YearProgeress></YearProgeress>
 
       <div>
-        <button v-if='user.gender' class='scanBook button' @click='scanBook'>添加图书</button>
+        <button v-if='user.nickName' class='scanBook button' @click='scanBook'>添加图书</button>
       </div>
     </div>
     
